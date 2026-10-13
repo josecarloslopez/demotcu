@@ -1,0 +1,19 @@
+## Construir Imagen
+docker build -t python-tesseract:latest .
+
+## Ejecutarla
+docker run --rm -it -v $(pwd):/app python-tesseract:latest
+
+# Verificar Teseract
+docker run --rm python-tesseract:latest tesseract --version
+
+## Prepararlo para RKE2 / Rancher
+
+## Opción A — subirla a mi registry
+
+docker tag python-tesseract:latest registry.clolab.es/python-tesseract:1.0
+docker push registry.clolab.es/python-tesseract:1.0
+
+
+
+
