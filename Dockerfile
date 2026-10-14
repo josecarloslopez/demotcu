@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copiar dependencias Python
-COPY requirements.txt .
+COPY app/requirements.txt .
 
 # Instalar dependencias Python
 RUN pip install --no-cache-dir -r requirements.txt
