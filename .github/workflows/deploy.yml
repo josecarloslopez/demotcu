@@ -58,8 +58,8 @@ jobs:
           kubectl apply -f k8s/pvc.yaml
           kubectl apply -f k8s/configmap.yaml
           # (secret.yaml no debe subirse en texto plano a git si contiene claves reales; ver nota abajo)
-          kubectl apply -f k8s/service.yaml
-          kubectl apply -f k8s/ingress.yaml
+          # kubectl apply -f k8s/service.yaml
+          # kubectl apply -f k8s/ingress.yaml
           
           # 2. Actualizar imagen en el Deployment con el commit SHA actual
           SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
