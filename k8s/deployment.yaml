@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-ocr
+  namespace: app-ocr
+  labels:
+    app: app-ocr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-ocr
+  template:
+    metadata:
+      labels:
+        app: app-ocr
+    spec:
+      # Opcional: secreto para bajar la imagen si el repo de GHCR es privado
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: app-ocr
+          image: ghcr.io/josecarloslopez/demotcu:latest
+          imagePullPolicy: Always
+          # 1. Carga masiva de variables de entorno
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secret
+          # 2. Montaje del disco persistente
+          volumeMounts:
+            - name: persistent-storage
+              mountPath: /app    # Ruta dentro del contenedor
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
+      volumes:
+        - name: persistent-storage
+          persistentVolumeClaim:
+            claimName: app-storage-pvc
+

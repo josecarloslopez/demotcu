@@ -54,7 +54,7 @@ jobs:
       - name: Deploy Manifests
         run: |
           # 1. Aplicar ConfigMaps, PVCs y Services
-          kubectl apply -f k8s/namespace.yaml
+          # kubectl apply -f k8s/namespace.yaml
           kubectl apply -f k8s/pvc.yaml
           kubectl apply -f k8s/configmap.yaml
           # (secret.yaml no debe subirse en texto plano a git si contiene claves reales; ver nota abajo)
